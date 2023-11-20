@@ -1,0 +1,14 @@
+﻿@using Bloonsor.BlazorApp.Models
+
+@if (Model is not null)
+{
+    <img style="position:absolute;top:@(Model.PositionTop)px;left:@(Model.PositionLeft)px;" 
+         src="/images/@FileName" />
+}
+
+@code {
+    public string? FileName { get; set; } = "Balloon1.png";
+
+    [Parameter]
+    public BalloonViewModel? Model { get; set; }
+}

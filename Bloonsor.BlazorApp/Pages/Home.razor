@@ -1,0 +1,41 @@
+﻿@page "/"
+@using Bloonsor.BlazorApp.Components
+@using Bloonsor.BlazorApp.Models
+<button @onclick="CreateBalloons">Reload</button>
+
+@foreach (var balloon in Balloons)
+{
+    <Balloon Model="balloon"></Balloon>
+}
+
+@code
+{
+    private Random Random { get; set; } = new Random();
+    private IList<BalloonViewModel> Balloons { get; set; } = new List<BalloonViewModel>();
+
+    protected override Task OnInitializedAsync()
+    {
+        CreateBalloons();
+
+        return base.OnInitializedAsync();
+    }
+
+    private void CreateBalloons()
+    {
+        Balloons.Clear();
+        
+        for (int i = 0; i < 10; i++)
+        {
+            var balloon = CreateBalloon();
+            Balloons.Add(balloon);
+        }
+    }
+
+    private BalloonViewModel CreateBalloon()
+    {
+        var top = Random.Next(0, 500);
+        var left = Random.Next(0, 1000);
+
+        return new BalloonViewModel { PositionLeft = left, PositionTop = top };
+    }
+}
